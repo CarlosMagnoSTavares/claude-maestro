@@ -1,0 +1,179 @@
+﻿<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Claude Maestro — sua equipe de agentes de IA, em português</title>
+<meta name="description" content="Transforme o Claude Code numa equipe de agentes operada por um gestor — sem terminal, pelo WhatsApp. Grátis para usar.">
+<style>
+  :root{
+    --palco:#0e1030; --violeta:#7c6cf0; --ciano:#33c6f0; --coral:#ff8a5c;
+    --vidro:rgba(255,255,255,.08); --vidro-borda:rgba(255,255,255,.18);
+    --tinta:#eef0ff; --tinta-suave:rgba(235,238,255,.72);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:"Segoe UI",system-ui,-apple-system,sans-serif;
+    background:var(--palco); color:var(--tinta); line-height:1.6;
+    min-height:100vh; overflow-x:hidden;
+  }
+  body::before{
+    content:"";position:fixed;inset:-20%;z-index:-1;pointer-events:none;
+    background:
+      radial-gradient(46% 58% at 18% 18%,rgba(124,108,240,.85),transparent 70%),
+      radial-gradient(40% 50% at 84% 14%,rgba(51,198,240,.6),transparent 70%),
+      radial-gradient(48% 55% at 72% 92%,rgba(255,138,92,.5),transparent 72%),
+      radial-gradient(32% 42% at 6% 94%,rgba(124,108,240,.45),transparent 70%);
+    animation:drift 36s ease-in-out infinite alternate;
+  }
+  @keyframes drift{from{transform:translate3d(-2%,-1%,0) scale(1)}to{transform:translate3d(2%,3%,0) scale(1.06)}}
+  @media (prefers-reduced-motion:reduce){body::before{animation:none}}
+  .wrap{max-width:960px;margin:0 auto;padding:0 1.25rem}
+  h1,h2,h3{font-weight:800;letter-spacing:-.02em;line-height:1.15}
+
+  /* topo */
+  header{text-align:center;padding:5rem 0 3rem}
+  .logo{display:inline-flex;align-items:center;gap:.6rem;font-weight:800;font-size:1.1rem;
+    letter-spacing:.04em;color:#fff;margin-bottom:2.5rem;opacity:.9}
+  .logo .mark{width:2.2rem;height:2.2rem;border-radius:.6rem;
+    background:linear-gradient(135deg,var(--violeta),var(--ciano));
+    display:grid;place-items:center;font-size:1.1rem;
+    box-shadow:0 6px 18px rgba(124,108,240,.5),inset 0 1px 0 rgba(255,255,255,.4)}
+  h1{font-size:clamp(2.2rem,6vw,3.6rem)}
+  h1 .grad{background:linear-gradient(120deg,var(--ciano),var(--violeta),var(--coral));
+    -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+  .sub{font-size:clamp(1.05rem,2.4vw,1.3rem);color:var(--tinta-suave);
+    max-width:640px;margin:1.2rem auto 0}
+
+  /* botão download */
+  .cta{margin-top:2.5rem;display:flex;gap:.8rem;justify-content:center;flex-wrap:wrap}
+  .btn{display:inline-flex;align-items:center;gap:.6rem;padding:.95rem 1.7rem;
+    border-radius:.85rem;font-weight:700;font-size:1.05rem;text-decoration:none;
+    transition:transform .15s ease,box-shadow .15s ease;border:0;cursor:pointer}
+  .btn-primary{color:#fff;background:linear-gradient(135deg,var(--violeta),#5a8df0);
+    box-shadow:0 8px 24px rgba(124,108,240,.5),inset 0 1px 0 rgba(255,255,255,.35)}
+  .btn-primary:hover{transform:translateY(-2px);box-shadow:0 12px 30px rgba(124,108,240,.65)}
+  .btn-ghost{color:var(--tinta);background:var(--vidro);border:1px solid var(--vidro-borda);
+    -webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px)}
+  .btn-ghost:hover{transform:translateY(-2px);background:rgba(255,255,255,.14)}
+  .freetag{display:inline-block;margin-top:1.4rem;padding:.35rem .9rem;border-radius:10rem;
+    font-size:.85rem;font-weight:700;letter-spacing:.03em;color:#0e1030;
+    background:linear-gradient(135deg,#7ef0c0,#33c6f0)}
+  .meta{margin-top:1rem;font-size:.85rem;color:var(--tinta-suave)}
+
+  /* cards de vidro */
+  section{padding:2.5rem 0}
+  h2{font-size:clamp(1.5rem,4vw,2.1rem);text-align:center;margin-bottom:2rem}
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1.1rem}
+  .card{background:var(--vidro);border:1px solid var(--vidro-borda);border-radius:1.1rem;
+    padding:1.5rem;-webkit-backdrop-filter:blur(16px) saturate(150%);
+    backdrop-filter:blur(16px) saturate(150%);
+    box-shadow:0 12px 40px rgba(8,10,40,.3),inset 0 1px 0 rgba(255,255,255,.15)}
+  .card .ico{font-size:1.7rem;margin-bottom:.6rem;display:block}
+  .card h3{font-size:1.1rem;margin-bottom:.4rem}
+  .card p{font-size:.94rem;color:var(--tinta-suave)}
+
+  /* passos */
+  ol.steps{max-width:640px;margin:0 auto;list-style:none;counter-reset:s}
+  ol.steps li{counter-increment:s;position:relative;padding:.9rem 0 .9rem 3.2rem;
+    border-bottom:1px solid rgba(255,255,255,.08)}
+  ol.steps li::before{content:counter(s);position:absolute;left:0;top:.8rem;
+    width:2.1rem;height:2.1rem;border-radius:50%;display:grid;place-items:center;
+    font-weight:800;color:#fff;background:linear-gradient(135deg,var(--violeta),var(--ciano));
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.3)}
+  ol.steps b{color:#fff}
+
+  .note{background:var(--vidro);border:1px solid var(--vidro-borda);border-radius:1.1rem;
+    padding:1.4rem 1.6rem;font-size:.92rem;color:var(--tinta-suave);
+    -webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px)}
+  .note b{color:var(--tinta)}
+  .warn{border-left:.3rem solid var(--coral)}
+
+  footer{text-align:center;padding:3rem 0 4rem;color:var(--tinta-suave);font-size:.85rem}
+  footer a{color:#b9c6ff}
+  a.inline{color:#b9c6ff}
+  @supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))){
+    .card,.note,.btn-ghost{background:rgba(30,32,64,.9)}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <div class="logo"><span class="mark">🎼</span> CLAUDE MAESTRO</div>
+    <h1>Sua <span class="grad">equipe de agentes de IA</span><br>operada por você, em português</h1>
+    <p class="sub">Descreva a sua empresa e o que precisa. O Maestro contrata os agentes certos,
+      planeja e executa — você aprova com um clique. Sem terminal, sem código, direto do computador
+      ou pelo WhatsApp.</p>
+
+    <div class="cta">
+      <a class="btn btn-primary" href="https://github.com/CarlosMagnoSTavares/claude-maestro/releases/latest/download/ClaudeMaestro-Setup.exe">
+        ⬇ Baixar para Windows</a>
+      <a class="btn btn-ghost" href="https://github.com/CarlosMagnoSTavares/claude-maestro/releases/latest">
+        Ver todas as versões</a>
+    </div>
+    <div><span class="freetag">100% GRÁTIS PARA USAR</span></div>
+    <p class="meta">Windows 10/11 · precisa de Python, Node.js e uma conta Claude
+      (o próprio app ajuda a instalar tudo no primeiro uso).</p>
+  </header>
+
+  <section>
+    <h2>O que ele faz por você</h2>
+    <div class="grid">
+      <div class="card"><span class="ico">🤖</span><h3>Contrata a equipe sozinho</h3>
+        <p>Você diz a missão em português; o Maestro decide quais agentes criar, com quais
+          habilidades, e monta um plano.</p></div>
+      <div class="card"><span class="ico">✅</span><h3>Você no controle</h3>
+        <p>Governança por missão: nada executa sem a sua aprovação (padrão seguro). Teto de
+          custo e auditoria de tudo.</p></div>
+      <div class="card"><span class="ico">💬</span><h3>Opere pelo WhatsApp</h3>
+        <p>Crie missões, aprove planos e receba as entregas direto na conversa — por menus
+          numerados, sem complicação.</p></div>
+      <div class="card"><span class="ico">✨</span><h3>Modelos prontos</h3>
+        <p>Site, controle financeiro, análise de vendas, posts de Instagram, proposta comercial…
+          um clique preenche a missão.</p></div>
+      <div class="card"><span class="ico">📦</span><h3>Entregas na sua pasta</h3>
+        <p>Ao terminar, a missão mostra todos os arquivos que a equipe produziu, com download e
+          botão “abrir pasta”.</p></div>
+      <div class="card"><span class="ico">💡</span><h3>Equipe proativa</h3>
+        <p>Depois de concluir, os agentes analisam os seus objetivos e sugerem as próximas
+          missões de maior impacto.</p></div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Instalar em 3 passos</h2>
+    <ol class="steps">
+      <li>Baixe o <b>ClaudeMaestro-Setup.exe</b> no botão acima e execute
+        (avançar → avançar → concluir).</li>
+      <li>Abra o Maestro e siga o <b>checklist do Painel</b> — ele instala Claude Code e
+        Node.js pra você e faz o login.</li>
+      <li>Crie a sua empresa, escolha uma pasta de projeto e mande a <b>primeira missão</b>.
+        Pronto.</li>
+    </ol>
+    <p class="meta" style="text-align:center;margin-top:1.5rem">
+      Ao executar, o Windows pode mostrar um aviso do SmartScreen (o app ainda não é assinado).
+      Clique em <b>“Mais informações” → “Executar assim mesmo”</b>.</p>
+  </section>
+
+  <section>
+    <div class="note warn">
+      <b>Licença — grátis, mas protegida.</b> O Claude Maestro é de código aberto para você
+      <b>usar à vontade, inclusive na sua empresa, sem pagar nada</b>. O que não é permitido é
+      <b>vender</b> o Maestro ou oferecê-lo como serviço pago sem uma licença comercial.
+      Assim o projeto cresce livre e ninguém lucra às suas custas.
+      Licença <a class="inline" href="https://github.com/CarlosMagnoSTavares/claude-maestro/blob/main/LICENSE">Apache 2.0 + Commons Clause</a>.
+      Quer vender ou revender? <a class="inline" href="mailto:carlosmagnosilvatavares@gmail.com">Fale comigo</a>.
+    </div>
+  </section>
+
+  <footer>
+    <p>Feito por <b>CMSTech</b> · <a href="https://github.com/CarlosMagnoSTavares/claude-maestro">Código no GitHub</a></p>
+    <p style="margin-top:.5rem">Claude Maestro orquestra o Claude Code localmente. “Claude” é marca da Anthropic.</p>
+  </footer>
+
+</div>
+</body>
+</html>

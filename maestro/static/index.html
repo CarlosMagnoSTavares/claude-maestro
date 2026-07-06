@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>Claude Maestro</title>
+<link rel="stylesheet" href="vendor/fa/fontawesome.min.css">
+<link rel="stylesheet" href="vendor/sb-admin-2.min.css">
+<link rel="stylesheet" href="maestro.css">
+<link rel="icon" type="image/x-icon" href="favicon.ico">
+<link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
+</head>
+<body id="page-top">
+<div id="wrapper">
+
+  <!-- Sidebar -->
+  <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+    <a class="sidebar-brand d-flex align-items-center justify-content-center" href="#painel">
+      <div class="sidebar-brand-icon"><i class="fas fa-wave-square"></i></div>
+      <div class="sidebar-brand-text mx-2">Maestro</div>
+    </a>
+    <hr class="sidebar-divider my-0">
+    <li class="nav-item d-none" data-view="comecar" id="navComecar">
+      <a class="nav-link" href="#comecar"><i class="fas fa-fw fa-flag-checkered"></i><span>Começar</span></a>
+    </li>
+    <li class="nav-item" data-view="painel">
+      <a class="nav-link" href="#painel"><i class="fas fa-fw fa-tachometer-alt"></i><span>Painel</span></a>
+    </li>
+    <hr class="sidebar-divider nav-advanced">
+    <div class="sidebar-heading nav-advanced">Operação</div>
+    <li class="nav-item nav-advanced" data-view="missoes">
+      <a class="nav-link" href="#missoes"><i class="fas fa-fw fa-rocket"></i><span>Missões</span></a>
+    </li>
+    <li class="nav-item nav-advanced" data-view="aprovacoes">
+      <a class="nav-link" href="#aprovacoes"><i class="fas fa-fw fa-check-double"></i><span>Aprovações</span>
+        <span class="badge badge-danger badge-counter ml-2 d-none" id="navApprovalBadge"></span></a>
+    </li>
+    <li class="nav-item nav-advanced" data-view="whatsapp">
+      <a class="nav-link" href="#whatsapp"><i class="fab fa-fw fa-whatsapp"></i><span>WhatsApp</span></a>
+    </li>
+    <li class="nav-item nav-advanced" data-view="agenda">
+      <a class="nav-link" href="#agenda"><i class="fas fa-fw fa-clock"></i><span>Agenda</span></a>
+    </li>
+    <hr class="sidebar-divider nav-advanced">
+    <div class="sidebar-heading nav-advanced">Cadastros</div>
+    <li class="nav-item nav-advanced" data-view="empresas">
+      <a class="nav-link" href="#empresas"><i class="fas fa-fw fa-building"></i><span>Empresas</span></a>
+    </li>
+    <li class="nav-item nav-advanced" data-view="projetos">
+      <a class="nav-link" href="#projetos"><i class="fas fa-fw fa-folder-open"></i><span>Projetos</span></a>
+    </li>
+    <li class="nav-item nav-advanced" data-view="agentes">
+      <a class="nav-link" href="#agentes"><i class="fas fa-fw fa-users-cog"></i><span>Equipe de Agentes</span></a>
+    </li>
+    <hr class="sidebar-divider nav-advanced">
+    <div class="sidebar-heading nav-advanced">Sistema</div>
+    <li class="nav-item nav-advanced" data-view="porter">
+      <a class="nav-link" href="#porter"><i class="fas fa-fw fa-exchange-alt"></i><span>Exportar / Importar</span></a>
+    </li>
+    <li class="nav-item nav-advanced" data-view="ajustes">
+      <a class="nav-link" href="#ajustes"><i class="fas fa-fw fa-cogs"></i><span>Ajustes</span></a>
+    </li>
+    <hr class="sidebar-divider d-none d-md-block">
+    <div class="text-center d-none d-md-inline">
+      <button class="rounded-circle border-0" id="sidebarToggle"></button>
+    </div>
+  </ul>
+
+  <!-- Content -->
+  <div id="content-wrapper" class="d-flex flex-column">
+    <div id="content">
+
+      <!-- Topbar -->
+      <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+        <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+          <i class="fa fa-bars"></i>
+        </button>
+        <h1 class="h5 mb-0 text-gray-800" id="pageTitle">Painel</h1>
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item d-flex align-items-center mx-1">
+            <button class="btn btn-sm btn-outline-warning d-none" id="btnPauseCompany"
+              title="Pausa/retoma todas as execuções da empresa (a memória fica salva para continuar depois)">
+              <i class="fas fa-pause mr-1"></i>Pausar empresa</button>
+          </li>
+          <li class="nav-item dropdown no-arrow mx-1" id="wsSwitcher"></li>
+          <div class="topbar-divider d-none d-sm-block"></div>
+          <li class="nav-item dropdown no-arrow mx-1">
+            <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button"
+               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <i class="fas fa-bell fa-fw"></i>
+              <span class="badge badge-danger badge-counter d-none" id="bellBadge"></span>
+            </a>
+            <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                 aria-labelledby="alertsDropdown" id="bellList" style="width: 22rem;">
+              <h6 class="dropdown-header">Avisos</h6>
+              <div id="bellItems"></div>
+              <a class="dropdown-item text-center small text-gray-500" href="#" id="bellClear">Marcar tudo como lido</a>
+            </div>
+          </li>
+          <div class="topbar-divider d-none d-sm-block"></div>
+          <li class="nav-item">
+            <span class="nav-link"><span id="statusBadge" class="badge badge-secondary">verificando...</span></span>
+          </li>
+        </ul>
+      </nav>
+
+      <div class="container-fluid" id="main"></div>
+    </div>
+
+    <footer class="sticky-footer bg-white">
+      <div class="container my-auto">
+        <div class="copyright text-center my-auto">
+          <span>Claude Maestro &middot; orquestração local do Claude Code &middot; CMST</span>
+        </div>
+      </div>
+    </footer>
+  </div>
+</div>
+
+<!-- Modal: Termo de Risco (consentimento) -->
+<div class="modal fade" id="riskModal" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title"><i class="fas fa-exclamation-triangle text-warning mr-2"></i>Termo de Ciência e Assunção de Risco</h5>
+        <button class="close" type="button" data-dismiss="modal" aria-label="Fechar"><span aria-hidden="true">&times;</span></button>
+      </div>
+      <div class="modal-body">
+        <div class="alert alert-danger d-none" id="riskYolo">
+          <strong><i class="fas fa-skull-crossbones mr-2"></i>Modo "Só se vive uma vez":</strong>
+          o Maestro <u>nunca mais vai parar para perguntar</u> nesta missão. Planos executam direto,
+          o teto de custo é <strong>auto-aprovado</strong> e, se o limite do seu plano do Claude acabar,
+          ele espera o reset e <strong>continua sozinho</strong> — inclusive de madrugada.
+          Os custos podem crescer sem nenhuma intervenção sua. Use por sua conta e risco.
+        </div>
+        <pre class="small text-gray-800 term-text" id="riskTermText">Carregando…</pre>
+        <div class="custom-control custom-checkbox mt-3">
+          <input type="checkbox" class="custom-control-input" id="riskAccept">
+          <label class="custom-control-label" for="riskAccept">
+            Li, compreendi e <strong>assumo o risco</strong>. Habilitar o modo autônomo para esta missão.
+          </label>
+        </div>
+        <p class="small text-muted mt-2 mb-0" id="riskHash"></p>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
+        <button class="btn btn-warning" type="button" id="riskConfirm" disabled>Aceitar e criar missão</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal: reprovar com motivo (feedback obrigatório para a IA melhorar) -->
+<div class="modal fade" id="rejectModal" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title"><i class="fas fa-times-circle text-danger mr-2"></i>Reprovar plano</h5>
+        <button class="close" type="button" data-dismiss="modal" aria-label="Fechar"><span aria-hidden="true">&times;</span></button>
+      </div>
+      <div class="modal-body">
+        <p class="small text-muted">Explique <strong>por que</strong> está reprovando. O Maestro usa
+          o seu motivo para gerar um plano melhor e apresentar de novo para aprovação.</p>
+        <textarea class="form-control" id="rejectReason" rows="3"
+          placeholder="Ex.: O plano não inclui testes; quero que o site tenha também uma página de contato…"></textarea>
+      </div>
+      <div class="modal-footer d-flex justify-content-between">
+        <button class="btn btn-outline-danger" type="button" id="rejectCancelTask"
+          title="Encerra a missão inteira — nada mais será executado">
+          <i class="fas fa-ban mr-1"></i>Cancelar missão inteira</button>
+        <div>
+          <button class="btn btn-secondary" type="button" data-dismiss="modal">Voltar</button>
+          <button class="btn btn-danger" type="button" id="rejectConfirm">
+            <i class="fas fa-redo mr-1"></i>Reprovar e replanejar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal: ficha completa do agente -->
+<div class="modal fade" id="agentModal" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title"><i class="fas fa-user-cog text-primary mr-2"></i>
+          <span id="agentModalName">Agente</span></h5>
+        <button class="close" type="button" data-dismiss="modal" aria-label="Fechar"><span aria-hidden="true">&times;</span></button>
+      </div>
+      <div class="modal-body" id="agentModalBody">Carregando…</div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" type="button" data-dismiss="modal">Fechar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal: debug RAW de uma chamada ao Claude -->
+<div class="modal fade" id="llmModal" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog modal-xl modal-dialog-scrollable" role="document" style="max-width: 92vw;">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title"><i class="fas fa-bug text-primary mr-2"></i>Chamada RAW ao Claude</h5>
+        <button class="close" type="button" data-dismiss="modal" aria-label="Fechar"><span aria-hidden="true">&times;</span></button>
+      </div>
+      <div class="modal-body">
+        <div class="mb-3" id="llmMeta"></div>
+        <div id="llmSections"></div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" type="button" data-dismiss="modal">Fechar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="toasts"></div>
+
+<script src="vendor/jquery.min.js"></script>
+<script src="vendor/bootstrap.bundle.min.js"></script>
+<script src="vendor/sb-admin-2.min.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

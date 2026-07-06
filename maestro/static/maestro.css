@@ -1,0 +1,355 @@
+﻿/* Ajustes locais sobre o SB Admin 2 */
+
+
+
+#toasts {
+  position: fixed; bottom: 1.25rem; right: 1.25rem;
+  display: flex; flex-direction: column; gap: .5rem; z-index: 2000;
+}
+.m-toast {
+  background: #2e2f45; color: #fff; padding: .7rem 1.1rem; border-radius: .35rem;
+  box-shadow: 0 .5rem 1.5rem rgba(0,0,0,.3); max-width: 22rem; font-size: .875rem;
+  animation: m-slide .2s ease;
+}
+.m-toast.err { background: #e74a3b; }
+@keyframes m-slide { from { transform: translateY(10px); opacity: 0; } }
+
+.feed { max-height: 330px; overflow-y: auto; font-size: .82rem; }
+.feed .item-row { padding: .3rem .1rem; border-bottom: 1px dashed #e3e6f0; }
+.feed .item-row time { color: #858796; margin-right: .5rem; font-size: .74rem; }
+.feed .warn { color: #b58705; }
+.feed .error { color: #e74a3b; }
+/* neutraliza o .error da página 404 do SB Admin (font-size:7rem) dentro do feed */
+.feed .item-row.error { font-size: .82rem; line-height: 1.4; position: static; width: auto; }
+
+.term-text { white-space: pre-wrap; background: #f8f9fc; padding: 1rem; border-radius: .35rem; }
+
+.phase-pill {
+  display: inline-block; padding: .35rem .8rem; border-radius: 10rem;
+  font-size: .72rem; font-weight: 700; letter-spacing: .02em;
+  background: #eaecf4; color: #858796; margin-right: .35rem; margin-bottom: .35rem;
+}
+.phase-pill.done { background: #d4f4e5; color: #14875f; }
+.phase-pill.now { background: #4e73df; color: #fff; }
+.phase-pill.hold { background: #fdf3d8; color: #b58705; }
+
+code.path { background: #f1f3f9; padding: .1rem .45rem; border-radius: .25rem; font-size: .78rem; }
+.table td { vertical-align: middle; }
+.cursor { cursor: pointer; }
+
+/* jornada guiada: menu enxuto até concluir o primeiro uso */
+body.journey-on .nav-advanced { display: none !important; }
+
+.journey-steps { display: flex; justify-content: center; gap: .4rem; margin-bottom: 1.5rem; flex-wrap: wrap; }
+.journey-step {
+  display: flex; align-items: center; gap: .45rem;
+  padding: .45rem .9rem; border-radius: 10rem; font-size: .8rem; font-weight: 700;
+  background: #eaecf4; color: #858796;
+}
+.journey-step .num {
+  width: 1.4rem; height: 1.4rem; border-radius: 50%; display: inline-flex;
+  align-items: center; justify-content: center; background: #fff; font-size: .75rem;
+}
+.journey-step.done { background: #d4f4e5; color: #14875f; }
+.journey-step.now { background: #4e73df; color: #fff; }
+.journey-step.now .num { color: #4e73df; }
+
+.journey-card { max-width: 640px; margin: 0 auto; }
+.journey-hero { border-left: .35rem solid #4e73df; }
+.check-line { padding: .25rem 0; }
+
+/* passos concluídos clicáveis (voltar e editar) */
+a.journey-step { text-decoration: none; }
+a.journey-step:hover { background: #bfead6; color: #0e6b4a; }
+
+/* faixa de contexto do workspace (empresa ativa) */
+.ws-context {
+  background: #eef2ff; border: 1px solid #d5ddf6; border-left: .35rem solid #4e73df;
+  color: #3a3b45; padding: .55rem .9rem; border-radius: .35rem; font-size: .85rem;
+}
+
+/* ficha do agente / debug RAW */
+.agent-card:hover { box-shadow: 0 .5rem 1.5rem rgba(78,115,223,.25) !important; }
+.raw-pre {
+  white-space: pre-wrap; word-break: break-word; background: #f8f9fc;
+  border: 1px solid #e3e6f0; border-radius: .35rem; padding: .75rem;
+  font-size: .78rem; max-height: 340px; overflow-y: auto;
+}
+.team-editor { background: #f8f9fc; border: 1px dashed #d1d3e2; border-radius: .35rem; padding: .6rem .8rem; }
+.team-editor .team-name { min-width: 11rem; }
+
+/* ---------------- organograma da equipe (Equipe de Agentes) ---------------- */
+.org-chart { overflow-x: auto; }
+.org-root { text-align: center; }
+.org-root > .org-node.maestro {
+  display: inline-block; text-align: left;
+  background: #4e73df; color: #fff; border-color: #4e73df;
+}
+.org-node.maestro .org-role { color: #dbe4ff; }
+.org-level {
+  display: flex; justify-content: center; align-items: flex-start;
+  list-style: none; padding: 1.6rem 0 0; margin: 0; position: relative;
+}
+/* linha vertical única descendo do nó pai até a barra horizontal dos filhos */
+.org-level::before {
+  content: ""; position: absolute; top: 0; left: 50%;
+  width: 2px; height: 1.6rem; background: #d1d3e2;
+}
+.org-level > li { padding: 1.6rem .6rem 0; position: relative; text-align: center; }
+/* cada li recebe metade da barra horizontal + a haste vertical até o próprio nó */
+.org-level > li::before,
+.org-level > li::after {
+  content: ""; position: absolute; top: 0; width: 50%; height: 1.6rem;
+  border-top: 2px solid #d1d3e2;
+}
+.org-level > li::before { right: 50%; border-right: 2px solid #d1d3e2; }
+.org-level > li::after { left: 50%; border-left: 2px solid #d1d3e2; }
+.org-level > li:first-child::before { border: 0 none; }
+.org-level > li:last-child::after { border: 0 none; }
+.org-level > li:only-child::before,
+.org-level > li:only-child::after { display: none; }
+.org-level > li:only-child { padding-top: 1.6rem; }
+.org-node {
+  display: inline-block; text-align: left; vertical-align: top;
+  background: #fff; border: 1px solid #d1d3e2; border-radius: .5rem;
+  padding: .6rem .8rem; width: 240px;
+  box-shadow: 0 .15rem .5rem rgba(58,59,69,.1); cursor: pointer;
+}
+.org-node.busy { border-color: #1cc88a; box-shadow: 0 0 0 2px rgba(28,200,138,.25); }
+.org-name { font-weight: 700; color: #4e73df; }
+.org-node.maestro .org-name { color: #fff; }
+.org-role { font-size: .75rem; color: #858796; margin-bottom: .3rem; }
+.org-badges { margin-bottom: .3rem; }
+.org-badges .badge { font-size: .65rem; }
+.org-status { font-size: .72rem; border-radius: .35rem; padding: .25rem .45rem; }
+.org-status.working { background: #e6f9f1; color: #13855c; }
+.org-status.queued { background: #fff8e6; color: #a07d1c; }
+.org-status.idle { background: #f1f3f9; color: #858796; }
+.org-task { color: #5a5c69; font-style: italic; margin-top: .15rem; }
+.org-dot {
+  display: inline-block; width: 8px; height: 8px; border-radius: 50%;
+  background: #1cc88a; margin-right: .3rem;
+  animation: org-pulse 1.2s ease-in-out infinite;
+}
+@keyframes org-pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: .35; transform: scale(1.5); }
+}
+
+/* ============================================================
+   LIQUID GLASS — tema "palco de aurora"
+   Fundo profundo com luzes de palco; painéis de vidro claro.
+   Texto escuro sobre vidro claro = contraste alto (público leigo).
+   ============================================================ */
+
+:root {
+  --palco: #0e1030;             /* noite do palco */
+  --aurora-violeta: #7c6cf0;
+  --aurora-ciano: #33c6f0;
+  --aurora-coral: #ff8a5c;
+  --vidro: rgba(255, 255, 255, .78);
+  --vidro-borda: rgba(255, 255, 255, .55);
+  --tinta: #23264a;             /* texto sobre vidro */
+  --tinta-suave: #6b6f8f;
+}
+
+body#page-top {
+  font-family: "Segoe UI Variable Text", "Segoe UI", system-ui, -apple-system, sans-serif;
+  background: var(--palco);
+  min-height: 100vh;
+}
+/* SB Admin pinta o conteúdo de cinza sólido — libera o palco atrás do vidro */
+#content-wrapper, #content { background: transparent !important; }
+h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6, .sidebar-brand-text {
+  font-family: "Segoe UI Variable Display", "Segoe UI", system-ui, sans-serif;
+  font-weight: 800;
+  letter-spacing: -.02em;
+}
+
+/* luzes de palco (assinatura): três auroras em deriva lenta */
+body#page-top::before {
+  content: "";
+  position: fixed;
+  inset: -20%;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    radial-gradient(46% 58% at 18% 22%, rgba(124, 108, 240, .85), transparent 70%),
+    radial-gradient(40% 50% at 82% 16%, rgba(51, 198, 240, .6), transparent 70%),
+    radial-gradient(48% 55% at 70% 90%, rgba(255, 138, 92, .55), transparent 72%),
+    radial-gradient(32% 42% at 6% 92%, rgba(124, 108, 240, .45), transparent 70%);
+  animation: aurora-drift 36s ease-in-out infinite alternate;
+}
+@keyframes aurora-drift {
+  from { transform: translate3d(-2%, -1%, 0) scale(1); }
+  50%  { transform: translate3d(2%, 2%, 0) scale(1.06); }
+  to   { transform: translate3d(-1%, 3%, 0) scale(1.02); }
+}
+@media (prefers-reduced-motion: reduce) {
+  body#page-top::before { animation: none; }
+}
+
+/* ---------- painéis de vidro ---------- */
+.card, .modal-content, .dropdown-list.dropdown-menu {
+  background: var(--vidro);
+  -webkit-backdrop-filter: blur(18px) saturate(160%);
+  backdrop-filter: blur(18px) saturate(160%);
+  border: 1px solid var(--vidro-borda);
+  border-radius: 1rem;
+  box-shadow:
+    0 12px 40px rgba(8, 10, 40, .35),
+    inset 0 1px 0 rgba(255, 255, 255, .85);   /* brilho especular no topo */
+  color: var(--tinta);
+}
+.card { overflow: hidden; }
+.card .card-header {
+  background: rgba(255, 255, 255, .35);
+  border-bottom: 1px solid rgba(255, 255, 255, .5);
+  border-radius: 1rem 1rem 0 0 !important;
+}
+/* máquinas sem suporte a blur: vidro vira painel quase sólido (legível) */
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .card, .modal-content, .dropdown-list.dropdown-menu { background: rgba(255, 255, 255, .96); }
+  .sidebar.bg-gradient-primary, .topbar.bg-white, .sticky-footer.bg-white { background: rgba(14, 16, 48, .97) !important; }
+  .topbar.bg-white { background: rgba(255, 255, 255, .97) !important; }
+}
+
+/* ---------- texto fora dos cards (sobre o palco escuro) ---------- */
+#main { color: #eef0ff; }
+#main .text-gray-800, #main h1, #main .h4 { color: #fff; }
+#main .text-muted, #main .text-gray-500 { color: rgba(235, 238, 255, .72) !important; }
+#main a:not(.btn):not(.badge):not(.journey-step) { color: #b9c6ff; }
+/* dentro do vidro claro, volta a tinta escura */
+#main .card, #main .card .text-gray-800, #main .card h1 { color: var(--tinta); }
+#main .card .text-muted, #main .card .text-gray-500 { color: var(--tinta-suave) !important; }
+#main .card a:not(.btn):not(.badge) { color: #4e5fd3; }
+#main .alert { color: inherit; }
+#main .alert .text-muted { color: inherit !important; }
+
+/* ---------- sidebar: vidro escuro com fio de aurora ---------- */
+.sidebar.bg-gradient-primary {
+  background: linear-gradient(180deg, rgba(20, 22, 58, .72), rgba(14, 16, 48, .78)) !important;
+  -webkit-backdrop-filter: blur(20px) saturate(150%);
+  backdrop-filter: blur(20px) saturate(150%);
+  border-right: 1px solid rgba(124, 108, 240, .35);
+  box-shadow: inset -1px 0 0 rgba(255, 255, 255, .06);
+}
+.sidebar .nav-item .nav-link { border-radius: .65rem; margin: 0 .5rem; width: auto; }
+.sidebar .nav-item .nav-link:hover { background: rgba(255, 255, 255, .08); }
+.sidebar .nav-item.active .nav-link {
+  background: linear-gradient(90deg, rgba(124, 108, 240, .55), rgba(51, 198, 240, .35));
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .25);
+}
+.sidebar hr.sidebar-divider { border-color: rgba(255, 255, 255, .12); }
+
+/* ---------- topbar e rodapé ---------- */
+.topbar.bg-white {
+  background: rgba(255, 255, 255, .62) !important;
+  -webkit-backdrop-filter: blur(18px) saturate(160%);
+  backdrop-filter: blur(18px) saturate(160%);
+  border-bottom: 1px solid rgba(255, 255, 255, .55);
+  box-shadow: 0 6px 24px rgba(8, 10, 40, .18) !important;
+}
+.sticky-footer.bg-white {
+  background: rgba(14, 16, 48, .4) !important;
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+  border-top: 1px solid rgba(255, 255, 255, .08);
+}
+.sticky-footer .copyright { color: rgba(235, 238, 255, .55); }
+
+/* ---------- botões: pílulas com luz ---------- */
+.btn { border-radius: .65rem; }
+.btn:focus, .btn:focus-visible, a.nav-link:focus-visible {
+  outline: 2px solid var(--aurora-ciano);
+  outline-offset: 2px;
+  box-shadow: none;
+}
+.btn-primary {
+  background: linear-gradient(135deg, var(--aurora-violeta), #5a8df0);
+  border: 0;
+  box-shadow: 0 4px 14px rgba(124, 108, 240, .4), inset 0 1px 0 rgba(255, 255, 255, .35);
+}
+.btn-primary:hover, .btn-primary:not(:disabled):active {
+  background: linear-gradient(135deg, #6b5ae6, #4d7fe8);
+  box-shadow: 0 6px 18px rgba(124, 108, 240, .55), inset 0 1px 0 rgba(255, 255, 255, .35);
+}
+.btn-success {
+  background: linear-gradient(135deg, #22c58b, #14a06d);
+  border: 0;
+  box-shadow: 0 4px 14px rgba(28, 200, 138, .35), inset 0 1px 0 rgba(255, 255, 255, .3);
+}
+
+/* ---------- formulários sobre vidro ---------- */
+.card .form-control {
+  background: rgba(255, 255, 255, .75);
+  border: 1px solid rgba(35, 38, 74, .18);
+  border-radius: .65rem;
+  color: var(--tinta);
+}
+.card .form-control:focus {
+  background: #fff;
+  border-color: var(--aurora-violeta);
+  box-shadow: 0 0 0 .2rem rgba(124, 108, 240, .25);
+}
+
+/* ---------- tabelas e divisores dentro do vidro ---------- */
+.card .table { color: var(--tinta); }
+.card .table td, .card .table th { border-color: rgba(35, 38, 74, .1); }
+.card .table thead th { border-bottom: 1px solid rgba(35, 38, 74, .18); }
+
+/* ---------- faixa de contexto do workspace: vidro fino ---------- */
+.ws-context {
+  background: rgba(255, 255, 255, .16);
+  -webkit-backdrop-filter: blur(10px) saturate(150%);
+  backdrop-filter: blur(10px) saturate(150%);
+  border: 1px solid rgba(255, 255, 255, .25);
+  border-left: .35rem solid var(--aurora-ciano);
+  border-radius: .75rem;
+  color: #eef0ff;
+}
+.ws-context .text-muted { color: rgba(235, 238, 255, .7) !important; }
+/* a mesma faixa dentro de um card de vidro claro volta a ser escura */
+.card .ws-context {
+  background: rgba(78, 115, 223, .08);
+  border-color: rgba(78, 115, 223, .25);
+  border-left-color: var(--aurora-violeta);
+  color: var(--tinta);
+}
+.card .ws-context .text-muted { color: var(--tinta-suave) !important; }
+
+/* rodapé da jornada guiada (fica sobre o palco escuro) */
+#main .journey-foot { color: rgba(235, 238, 255, .8) !important; }
+
+/* dropdown de notificações/workspace precisa vir à frente dos cards de vidro.
+   .topbar do SB Admin é position:static → z-index era ignorado; fixa em sticky. */
+.topbar.static-top { position: sticky; top: 0; z-index: 1040; }
+.topbar .dropdown-menu { z-index: 1060; }
+
+/* contraste dos ícones: sobre o palco escuro clareia; dentro do vidro escurece */
+#main .fas, #main .far, #main .fab { color: inherit; }
+#main .text-muted .fas, #main .text-muted .far { color: rgba(235, 238, 255, .8); }
+#main .card .text-muted .fas, #main .card .text-muted .far { color: var(--tinta-suave); }
+.sidebar .nav-link i { color: rgba(255, 255, 255, .85); }
+.sidebar .nav-item.active .nav-link i { color: #fff; }
+
+/* ---------- alertas sobre o palco: vidro colorido legível ---------- */
+#main > .alert, #main .alert {
+  -webkit-backdrop-filter: blur(12px) saturate(150%);
+  backdrop-filter: blur(12px) saturate(150%);
+  border-radius: .85rem;
+  border: 1px solid rgba(255, 255, 255, .35);
+}
+#main .alert-info { background: rgba(214, 236, 255, .85); color: #0b4a6f; }
+#main .alert-warning { background: rgba(255, 243, 205, .88); color: #6b4e00; }
+
+/* ---------- pílulas de fase / jornada seguem o tema ---------- */
+.phase-pill.now { background: linear-gradient(135deg, var(--aurora-violeta), #5a8df0); }
+.journey-step.now { background: linear-gradient(135deg, var(--aurora-violeta), #5a8df0); }
+.journey-step.now .num { color: var(--aurora-violeta); }
+
+/* ---------- barra de rolagem discreta ---------- */
+::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: rgba(124, 108, 240, .35); border-radius: 5px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(124, 108, 240, .55); }
