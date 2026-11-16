@@ -5,6 +5,8 @@
 > 🌐 **Site de download:** https://carlosmagnostavares.github.io/claude-maestro/
 > ⬇️ **Baixar (Windows):** [ClaudeMaestro-Setup.exe](https://github.com/CarlosMagnoSTavares/claude-maestro/releases/latest) · **grátis para usar** ([licença](LICENSE): Apache 2.0 + Commons Clause — usar é livre, **vender** exige licença comercial).
 
+> 🚀 **Do mesmo autor: [Aurora](https://cmsttech.com.br/)**, o orquestrador profissional de agentes para o Claude Code (CTO de IA + 74 especialistas, grid de terminais, revisão antes do commit, WhatsApp e celular; Windows, Mac e Linux). [Guias de Claude Code em português](https://cmsttech.com.br/guias/).
+
 Inspirado no núcleo do Paperclip (governança, heartbeat, tarefas, budget), reconstruído de forma simples e direta em Python — sem fork. O usuário descreve a empresa e a missão em português; o **Maestro** contrata os agentes certos, escolhe as skills mais populares do [skills.sh](https://skills.sh), planeja e executa — pedindo aprovação quando a governança exigir.
 
 ## Como usar
